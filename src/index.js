@@ -3,8 +3,17 @@ import { v4 as uuidv4 } from 'uuid'
 
 const app = express()
 
-
+/**
+ * - MODEL: 
+ * cpf = string
+ * name = string
+ * id = uuid
+ * statement = []
+ */
 const customers = []
+
+app.use(express.json())
+
 // função Middleware
 function verifyIfExistsAccountCPF(req, res, next) {
   const { cpf } = req.headers
@@ -39,19 +48,8 @@ function getBalance(statement) {
   return balance
 }
 
-/**
- * - MODEL: 
- * cpf = string
- * name = string
- * id = uuid
- * statement = []
- */
-
-app.use(express.json())
-
 // Incluindo o middleware em todas as rotas:
 // app.use(verifyIfExistsAccountCPF)
-
 
 // Inserindo os dados de um cliente
 app.post("/account", (req, res) => {
@@ -124,6 +122,7 @@ app.post("/withdraw", verifyIfExistsAccountCPF, (req, res) => {
   return res.send(201).send()
 })
 
+// Pegando informações das transações pela data
 app.get("/statement/date", verifyIfExistsAccountCPF, (req, res) => {
   const { customer } = req
 
@@ -135,6 +134,44 @@ app.get("/statement/date", verifyIfExistsAccountCPF, (req, res) => {
   const statement = customer.statement.filter((statement) => statement.created_at.toDateString() === new Date(dateFormat).toDateString())
 
   return res.json(statement)
+})
+
+// Atualizar dados do cliente
+app.put("/account", verifyIfExistsAccountCPF, (req, res) => {
+  const { name } = req.body
+
+  const { customer } = req
+
+  customer.name = name
+
+  return res.status(201).send()
+})
+
+// Exibir informações do cliente
+app.get("/account", verifyIfExistsAccountCPF, (req, res) => {
+  const { customer } = req
+
+  return res.json(customer)
+})
+
+// Deletando um cliente (sando método de array)
+app.delete("/account", verifyIfExistsAccountCPF, (req, res,) => {
+  const { customer } = req
+
+  // Usando o método splice, comum em Array
+  customers.splice(customer, 1)
+
+  // res.status(204)
+  return res.status(200).json(customers)
+})
+
+// Pegando informações do balanço da conta
+app.get("/balance", verifyIfExistsAccountCPF, (req, res) => {
+  const { customer } = req
+
+  const balance = getBalance(customer.statement)
+
+  return res.json(balance)
 })
 
 app.listen(3333)
