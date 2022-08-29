@@ -75,9 +75,3 @@ http://localhost:3333/account
 ```
 http://localhost:3333/balance
 ```
-
-
-
-
-
-
