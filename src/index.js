@@ -1,5 +1,7 @@
-import express from 'express'
-import { v4 as uuidv4 } from 'uuid'
+import express from 'express';
+import swaggerUi from "swagger-ui-express";
+import { v4 as uuidv4 } from 'uuid';
+import swaggerDocument from '../swagger.json' assert { type: "json" };
 
 const app = express()
 
@@ -13,6 +15,8 @@ const app = express()
 const customers = []
 
 app.use(express.json())
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // função Middleware
 function verifyIfExistsAccountCPF(req, res, next) {

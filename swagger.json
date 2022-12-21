@@ -1,0 +1,92 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Bank API",
+    "description": "API made with NodeJS to learn the fundamentals of Restful achtecture",
+    "contact": {
+      "name": "Support",
+      "email": "cl.juniorr@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/account": {
+      "tags": ["Accounts"],
+      "post": {
+        "description": "Create a account",
+        "requestBody": {
+          "description": "Necessary data to register a account",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestAccount"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully created"
+          },
+          "400": {
+            "description": "Invalid data"
+          }
+        }
+      },
+      "put": {
+        "description": "Update an account"
+      },
+      "get": {
+        "description": "Get account data"
+      },
+      "delete": {
+        "description": "Delete an account"
+      }
+    },
+    "/statement": {
+      "tags": ["Statements"],
+      "get": {
+        "description": "Get statement data"
+      }
+    },
+    "/deposit": {
+      "tags": ["Deposit"],
+      "post": {
+        "description": "Create a deposit"
+      }
+    },
+    "/withdraw": {
+      "tags": ["Withdraw"],
+      "post": {
+        "description": "Make a withdraw"
+      }
+    },
+    "/balance": {
+      "tags": ["Balance"],
+      "get": {
+        "description": "Get balance data"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RequestAccount": {
+        "type": "object",
+        "properties": {
+          "cpf": {
+            "type": "string",
+            "description": "Brazilian person ID number"
+          },
+          "name": {
+            "type": "string",
+            "description": "Person's name"
+          },
+          "statement": {
+            "type": "object",
+            "description": "Account statement"
+          }
+        }
+      }
+    }
+  }
+}
