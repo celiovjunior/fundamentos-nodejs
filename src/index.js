@@ -152,7 +152,7 @@ app.put("/account", verifyIfExistsAccountCPF, (req, res) => {
 })
 
 // Exibir informações do cliente
-app.get("/account", verifyIfExistsAccountCPF, (req, res) => {
+app.get("/account/:id", verifyIfExistsAccountCPF, (req, res) => {
   const { customer } = req
 
   return res.json(customer)

@@ -19,14 +19,21 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RequestAccount"
+                "$ref": "#/components/schemas/ResponseAccount"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Successfully created"
+            "description": "Successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
           },
           "400": {
             "description": "Invalid data"
@@ -75,15 +82,38 @@
         "properties": {
           "cpf": {
             "type": "string",
-            "description": "Brazilian person ID number"
+            "description": "Brazilian person ID number",
+            "example": "88866622299"
           },
           "name": {
             "type": "string",
-            "description": "Person's name"
+            "description": "Person's name",
+            "example": "Ze da Silva"
           },
-          "statement": {
-            "type": "object",
-            "description": "Account statement"
+          "id": {
+            "type": "string",
+            "description": "Account holder ID",
+            "format": "uuid"
+          }
+        }
+      },
+      "ResponseAccount": {
+        "type": "object",
+        "properties": {
+          "cpf": {
+            "type": "string",
+            "description": "Brazilian person ID number",
+            "example": "88866622299"
+          },
+          "name": {
+            "type": "string",
+            "description": "Person's name",
+            "example": "Ze da Silva"
+          },
+          "id": {
+            "type": "string",
+            "description": "Account holder ID",
+            "format": "uuid"
           }
         }
       }
