@@ -18,6 +18,13 @@ app.use(express.json())
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+app.get('/', (req, res) => {
+  return res.json({
+    success: true,
+    message: 'Rodando'
+  })
+})
+
 // função Middleware
 function verifyIfExistsAccountCPF(req, res, next) {
   const { cpf } = req.headers
